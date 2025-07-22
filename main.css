@@ -1,0 +1,320 @@
+
+:root {
+    --primary-blue: #3b82f6; /* Example blue from image */
+    --primary-green: #4CAF50; /* For recommendation tag, matches original */
+    --warning-orange: #f59e0b; /* For warning tag */
+    --text-color-dark: #333;
+    --text-color-medium: #555;
+    --text-color-light: #777;
+    --bg-light-gray: #f9fafb; /* Light background for overall app */
+    --bg-sidebar: #ffffff; /* White background for sidebar */
+    --border-color: #e5e7eb; /* Light border color */
+    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --sidebar-width: 380px; /* Adjusted width to match image better */
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* A modern font similar to the image */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-light-gray);
+    overflow: hidden; /* Hide scrollbars, as layout is fixed */
+}
+
+/* App Container */
+.app-container {
+    width: 1200px; /* Example fixed width for the app window */
+    height: 700px; /* Example fixed height for the app window */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Clip content at rounded corners */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #fff;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color-dark);
+}
+
+.logo-section .material-symbols-outlined {
+    color: var(--primary-blue);
+    font-size: 28px;
+    margin-right: 8px;
+}
+
+.add-note-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.add-note-btn:hover {
+    background-color: #3672d9;
+}
+
+.add-note-btn .material-symbols-outlined {
+    font-size: 20px;
+    fill: 1; /* Make icon filled */
+}
+
+/* Main Content Area */
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    color: var(--text-color-dark);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.sidebar p {
+    font-size: 14px;
+    color: var(--text-color-medium);
+    margin-bottom: 24px;
+}
+
+.recent-notes-list {
+    flex-grow: 1;
+    overflow-y: auto; /* Enable scrolling for notes */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+/* Hide scrollbar for aesthetic, but keep functionality */
+.recent-notes-list::-webkit-scrollbar {
+    width: 8px;
+}
+.recent-notes-list::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+.recent-notes-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+.note-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-light);
+}
+
+.note-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.note-tag.recommendation {
+    background-color: #d1fae5; /* Light green */
+    color: var(--primary-green);
+}
+
+.note-tag.warning {
+    background-color: #fef3c7; /* Light orange */
+    color: var(--warning-orange);
+}
+
+.note-text {
+    font-size: 15px;
+    color: var(--text-color-dark);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-color-light);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #f3f4f6; /* Dashed line separator */
+}
+
+.note-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.note-meta-item .material-symbols-outlined {
+    font-size: 16px;
+    color: var(--text-color-medium);
+}
+
+/* Map Area */
+.map-area {
+    flex-grow: 1;
+    background-color: #f7f9fc; /* Very light blue background */
+    position: relative;
+    overflow: hidden; /* Hide anything outside map bounds */
+    /* Simulate map grid */
+    background-image:
+        repeating-linear-gradient(to right, #eceef1 1px, transparent 1px, transparent 50px),
+        repeating-linear-gradient(to bottom, #eceef1 1px, transparent 1px, transparent 50px);
+    background-size: 50px 50px;
+    background-position: 0 0;
+}
+
+/* Map Markers */
+.map-marker {
+    position: absolute;
+    width: 32px; /* Standard marker width */
+    height: 32px; /* Standard marker height */
+    /* Using a common marker SVG-like shape */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f59e0b" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform: translate(-50%, -100%); /* Center the base of the marker on the coordinate */
+}
+
+.map-marker.orange {
+    fill: #f59e0b; /* Orange */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f59e0b" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
+}
+.map-marker.blue {
+    fill: var(--primary-blue);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233b82f6" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
+}
+
+
+/* Positioning for specific markers to match image */
+.marker-1 {
+    top: 30%;
+    left: 40%;
+}
+
+.marker-2 {
+    top: 65%;
+    left: 65%;
+}
+
+/* "Add Note Here" button on map */
+.add-note-here-button {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-medium);
+    transition: background-color 0.2s;
+}
+
+.add-note-here-button:hover {
+    background-color: #3672d9;
+}
+
+.add-note-here-button .material-symbols-outlined {
+    font-size: 20px;
+    fill: 1; /* Make icon filled */
+}
+
+/* Map Controls (Zoom & Eye) */
+.map-controls {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between buttons */
+}
+
+.map-control-group {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* For border-radius on children */
+}
+
+.map-control-btn {
+    background-color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--text-color-medium);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-control-btn:hover {
+    background-color: #f0f4f8;
+}
+
+.map-control-btn:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.map-control-btn.eye-btn {
+    border-bottom: none; /* No border for the single eye button */
+}
+
+.map-control-btn .material-symbols-outlined {
+    font-size: 24px;
+    fill: 0; /* Outline icon */
+}
