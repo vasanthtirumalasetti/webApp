@@ -27,15 +27,18 @@ body {
     overflow: hidden; /* Hide scrollbars, as layout is fixed */
 }
 
+
 .app-container {
-    width: 1600px; /* Example fixed width for the app window */
-    height: 900px; /* Example fixed height for the app window */
+    width: 95%; /* Take 95% of viewport width */
+    max-width: 1600px; /* But don't exceed 1200px */
+    height: 95vh; /* Take 95% of viewport height */
+    max-height: 900px; /* But don't exceed 700px */
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Clip content at rounded corners */
+    overflow: hidden;
 }
 
 /* Header */
