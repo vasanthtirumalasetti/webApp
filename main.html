@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocationNotes Replica</title>
+    <title>LocationNotes App</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet"  href="main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="app-container">
@@ -14,7 +15,7 @@
                 <span class="material-symbols-outlined">location_on</span>
                 LocationNotes
             </div>
-            <button class="add-note-btn">
+            <button class="add-note-btn" id="showAddNoteFormBtn">
                 <span class="material-symbols-outlined">add</span>
                 Add Note
             </button>
@@ -22,116 +23,42 @@
 
         <main class="main-content">
             <aside class="sidebar">
+                <div class="add-note-form-section hidden" id="addNoteFormSection">
+                    <h2>Create New Note</h2>
+                    <div class="note-location" id="selectedLocationDisplay">
+                        Click on the map to select a location.
+                    </div>
+                    <form id="noteForm">
+                        <label for="noteContent">Your Note:</label>
+                        <textarea id="noteContent" placeholder="Type your note here..." required></textarea>
+                        <label for="noteTag">Tag (optional):</label>
+                        <select id="noteTag">
+                            <option value="">None</option>
+                            <option value="recommendation">Recommendation</option>
+                            <option value="warning">Warning</option>
+                        </select>
+                        <button type="submit" id="submitNoteBtn" disabled>Add Note</button>
+                    </form>
+                    <button class="cancel-btn" id="cancelNoteBtn">Cancel</button>
+                </div>
+
                 <h2>Recent Notes</h2>
                 <p>Click on map markers to explore</p>
 
-                <div class="recent-notes-list">
-                    <!-- Note Card 1: Recommendation -->
-                    <div class="note-card">
-                        <div class="note-tag recommendation">recommendation</div>
+                <div class="recent-notes-list" id="recentNotesList">
+                    <div class="note-card dummy-note">
                         <div class="note-text">
-                            Amazing coffee shop with great atmosphere! Perfect for working or meeting...
-                        </div>
-                        <div class="note-meta">
-                            <div class="note-meta-top">
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">person</span>
-                                    Sarah Chen
-                                </div>
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">schedule</span>
-                                    2 hours ago
-                                </div>
-                            </div>
-                            <div class="note-meta-bottom">
-                                 <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    Times Square, NYC
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Note Card 2: Warning -->
-                    <div class="note-card">
-                        <div class="note-tag warning">warning</div>
-                        <div class="note-text">
-                            Heads up: The west entrance to the park is closed for a private event today. Use the east entrance.
-                        </div>
-                        <div class="note-meta">
-                            <div class="note-meta-top">
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">person</span>
-                                    Admin
-                                </div>
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">schedule</span>
-                                    1 day ago
-                                </div>
-                            </div>
-                            <div class="note-meta-bottom">
-                                 <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    Central Park, NYC
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Note Card 3: Recommendation -->
-                    <div class="note-card">
-                        <div class="note-tag recommendation">recommendation</div>
-                        <div class="note-text">
-                            The pizza here is a must-try. The crust is perfect and they have unique toppings.
-                        </div>
-                        <div class="note-meta">
-                            <div class="note-meta-top">
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">person</span>
-                                    Mike R.
-                                </div>
-                                <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">schedule</span>
-                                    3 days ago
-                                </div>
-                            </div>
-                            <div class="note-meta-bottom">
-                                 <div class="note-meta-item">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    Brooklyn Bridge Park
-                                </div>
-                            </div>
+                            Welcome! Click "Add Note" to add your own, or click on map markers for details.
                         </div>
                     </div>
                 </div>
             </aside>
 
-            <div class="map-area">
-                <div class="map-marker orange marker-1"></div>
-                <div class="map-marker blue marker-2"></div>
-
-                <button class="add-note-here-button">
-                    <span class="material-symbols-outlined">add</span>
-                    Add Note Here
-                </button>
-
-                <div class="map-controls">
-                    <div class="map-control-group">
-                        <button class="map-control-btn">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                        <button class="map-control-btn">
-                            <span class="material-symbols-outlined">remove</span>
-                        </button>
-                    </div>
-                    <div class="map-control-group">
-                        <button class="map-control-btn eye-btn">
-                            <span class="material-symbols-outlined">visibility</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div id="map"></div>
         </main>
     </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,22 +1,25 @@
-
+/* General Styles & Reset */
 :root {
-    --primary-blue: #3b82f6; /* Example blue from image */
-    --primary-green: #4CAF50; /* For recommendation tag, matches original */
-    --warning-orange: #f59e0b; /* For warning tag */
+    --primary-blue: #3b82f6;
+    --primary-green: #4CAF50;
+    --warning-orange: #f59e0b;
     --text-color-dark: #333;
     --text-color-medium: #555;
     --text-color-light: #777;
-    --bg-light-gray: #f9fafb; /* Light background for overall app */
-    --bg-sidebar: #ffffff; /* White background for sidebar */
-    --border-color: #e5e7eb; /* Light border color */
+    --bg-light-gray: #f9fafb;
+    --bg-sidebar: #ffffff;
+    --border-color: #e5e7eb;
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
     --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --sidebar-width: 380px; /* Adjusted width to match image better */
+
+    /* Responsive Font Sizing Base */
+    font-size: 16px; /* Base for rem units, fallback */
+    font-size: calc(14px + 0.2vw); /* Scales font-size based on viewport width */
 }
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif; /* A modern font similar to the image */
+    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     display: flex;
@@ -24,15 +27,17 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: var(--bg-light-gray);
-    overflow: hidden; /* Hide scrollbars, as layout is fixed */
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-
+/* App Container */
 .app-container {
-    width: 95%; /* Take 95% of viewport width */
-    max-width: 1600px; /* But don't exceed 1200px */
-    height: 95vh; /* Take 95% of viewport height */
-    max-height: 900px; /* But don't exceed 700px */
+    width: 95%;
+    max-width: 1600px;
+    height: 95vh;
+    max-height: 900px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -46,37 +51,38 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     background-color: #fff;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .logo-section {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-color-dark);
 }
 
 .logo-section .material-symbols-outlined {
     color: var(--primary-blue);
-    font-size: 28px;
-    margin-right: 8px;
+    font-size: 1.75rem;
+    margin-right: 0.5rem;
 }
 
 .add-note-btn {
     background-color: var(--primary-blue);
     color: white;
-    padding: 10px 18px;
+    padding: 0.625rem 1.125rem;
     border: none;
-    border-radius: 8px;
-    font-size: 15px;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
     font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.375rem;
     transition: background-color 0.2s;
 }
 
@@ -85,248 +91,370 @@ body {
 }
 
 .add-note-btn .material-symbols-outlined {
-    font-size: 20px;
-    fill: 1; /* Make icon filled */
+    font-size: 1.25rem;
+    fill: 1;
 }
 
 /* Main Content Area */
 .main-content {
     display: flex;
     flex-grow: 1;
-    overflow: hidden;
+    overflow: hidden; /* Important for sidebar/map sizing */
 }
 
 /* Sidebar */
 .sidebar {
-    width: var(--sidebar-width);
+    width: 380px;
+    min-width: 300px;
+    flex-shrink: 0;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
-    padding: 24px;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden; /* Manage overflow of its children */
 }
 
-.sidebar h2 {
-    font-size: 20px;
+/* New Note Form Section */
+.add-note-form-section {
+    background-color: #f9f9f9; /* Lighter background for the form */
+    border: 1px solid var(--border-color);
+    border-radius: 0.625rem;
+    padding: 1.25rem; /* 20px */
+    margin-bottom: 1.5rem; /* 24px */
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* 12px */
+}
+
+.add-note-form-section h2 {
+    font-size: 1.15rem; /* Slightly smaller for internal section */
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.add-note-form-section label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-color-medium);
+    margin-bottom: 0.25rem;
+}
+
+.add-note-form-section textarea,
+.add-note-form-section select {
+    width: calc(100% - 1.25rem); /* Adjust for padding */
+    padding: 0.625rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3125rem;
+    font-size: 0.9375rem;
+    resize: vertical;
+    min-height: 4rem; /* 64px */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.add-note-form-section select {
+    appearance: none; /* Remove default arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1rem;
+}
+
+.add-note-form-section button {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.add-note-form-section #submitNoteBtn {
+    background-color: var(--primary-blue);
+    color: white;
+}
+.add-note-form-section #submitNoteBtn:disabled {
+    background-color: #a0c2f0;
+    cursor: not-allowed;
+}
+.add-note-form-section #submitNoteBtn:hover:not(:disabled) {
+    background-color: #3672d9;
+}
+
+.add-note-form-section .cancel-btn {
+    background-color: #e0e0e0;
+    color: var(--text-color-dark);
+}
+.add-note-form-section .cancel-btn:hover {
+    background-color: #ccc;
+}
+
+.note-location {
+    font-size: 0.875rem;
+    color: var(--text-color-medium);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #eee;
+}
+
+/* Hidden class for JavaScript toggling */
+.hidden {
+    display: none !important;
+}
+
+/* Recent Notes List */
+h2 {
+    font-size: 1.25rem;
     color: var(--text-color-dark);
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 
-.sidebar p {
-    font-size: 14px;
+p {
+    font-size: 0.875rem;
     color: var(--text-color-medium);
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
 }
 
 .recent-notes-list {
     flex-grow: 1;
-    overflow-y: auto; /* Enable scrolling for notes */
-    padding-right: 10px; /* Space for scrollbar */
+    overflow-y: auto;
+    padding-right: 0.625rem;
 }
 
-/* Hide scrollbar for aesthetic, but keep functionality */
 .recent-notes-list::-webkit-scrollbar {
-    width: 8px;
+    width: 0.5rem;
 }
 .recent-notes-list::-webkit-scrollbar-thumb {
     background-color: #e0e0e0;
-    border-radius: 4px;
+    border-radius: 0.25rem;
 }
 .recent-notes-list::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-
 .note-card {
     background-color: #fff;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
+    border-radius: 0.625rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
     box-shadow: var(--shadow-light);
 }
 
+.note-card.dummy-note {
+    background-color: #f0f4f8;
+    color: var(--text-color-medium);
+    text-align: center;
+    font-style: italic;
+}
+.note-card.dummy-note .note-text {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+    color: inherit;
+}
+
+
 .note-tag {
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 5px;
-    margin-bottom: 12px;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.3125rem;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
 }
 
 .note-tag.recommendation {
-    background-color: #d1fae5; /* Light green */
+    background-color: #d1fae5;
     color: var(--primary-green);
 }
 
 .note-tag.warning {
-    background-color: #fef3c7; /* Light orange */
+    background-color: #fef3c7;
     color: var(--warning-orange);
 }
 
 .note-text {
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: var(--text-color-dark);
     line-height: 1.5;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
 }
 
 .note-meta {
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--text-color-light);
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px dashed #f3f4f6; /* Dashed line separator */
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed #f3f4f6;
 }
 
-.note-meta-top {
+.note-meta-top,
+.note-meta-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem; /* Space between top and bottom meta lines */
 }
-
 .note-meta-bottom {
-    display: flex;
+    margin-bottom: 0; /* Remove margin for the last line */
 }
 
 
 .note-meta-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.375rem;
 }
 
 .note-meta-item .material-symbols-outlined {
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-color-medium);
 }
 
-/* Map Area */
-.map-area {
+/* Map Area (Leaflet takes over styling) */
+#map {
     flex-grow: 1;
-    background-color: #f7f9fc; /* Very light blue background */
-    position: relative;
-    overflow: hidden; /* Hide anything outside map bounds */
-    /* Simulate map grid */
-    background-image:
-        repeating-linear-gradient(to right, #eceef1 1px, transparent 1px, transparent 50px),
-        repeating-linear-gradient(to bottom, #eceef1 1px, transparent 1px, transparent 50px);
-    background-size: 50px 50px;
-    background-position: 0 0;
+    height: 100%; /* Ensure map fills its container */
+    background-color: #f7f9fc; /* Fallback for empty map, Leaflet tiles will cover */
+    z-index: 1; /* Ensure map is below sidebar/popups */
 }
 
-/* Map Markers */
-.map-marker {
-    position: absolute;
-    width: 32px; /* Standard marker width */
-    height: 32px; /* Standard marker height */
-    /* Using a common marker SVG-like shape */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f59e0b" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    transform: translate(-50%, -100%); /* Center the base of the marker on the coordinate */
+/* ========================================================= */
+/* Media Queries for Responsiveness (adjust resolution/layout) */
+/* ========================================================= */
+
+@media (max-width: 1024px) {
+    .app-container {
+        width: 98%;
+        height: 98vh;
+    }
+
+    .sidebar {
+        width: 320px;
+        min-width: unset;
+    }
 }
 
-.map-marker.orange {
-    fill: #f59e0b; /* Orange */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f59e0b" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
-}
-.map-marker.blue {
-    fill: var(--primary-blue);
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233b82f6" width="24px" height="24px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>');
-}
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
 
+    .app-container {
+        flex-direction: column;
+        border-radius: 0;
+        width: 100vw;
+        height: 100vh;
+        box-shadow: none;
+    }
 
-/* Positioning for specific markers to match image */
-.marker-1 {
-    top: 30%;
-    left: 40%;
-}
+    .header {
+        padding: 1rem;
+    }
 
-.marker-2 {
-    top: 65%;
-    left: 65%;
-}
+    .logo-section {
+        font-size: 1.15rem;
+    }
 
-/* "Add Note Here" button on map */
-.add-note-here-button {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-blue);
-    color: white;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: var(--shadow-medium);
-    transition: background-color 0.2s;
-}
+    .logo-section .material-symbols-outlined {
+        font-size: 1.5rem;
+    }
 
-.add-note-here-button:hover {
-    background-color: #3672d9;
-}
+    .add-note-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
 
-.add-note-here-button .material-symbols-outlined {
-    font-size: 20px;
-    fill: 1; /* Make icon filled */
-}
+    .add-note-btn .material-symbols-outlined {
+        font-size: 1.125rem;
+    }
 
-/* Map Controls (Zoom & Eye) */
-.map-controls {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* Space between buttons */
-}
+    .main-content {
+        flex-direction: column;
+        overflow-y: auto;
+    }
 
-.map-control-group {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: var(--shadow-light);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* For border-radius on children */
-}
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1.5rem;
+        overflow-y: visible; /* Allow content inside sidebar to scroll */
+    }
 
-.map-control-btn {
-    background-color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    color: var(--text-color-medium);
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    h2, p {
+        padding-left: 1rem; /* Adjust padding for mobile sidebar content */
+        padding-right: 1rem;
+    }
+    .add-note-form-section {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        padding: 1rem;
+    }
+    .recent-notes-list {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .map-area { /* Changed from #map to .map-area for consistency */
+        min-height: 300px;
+        flex-grow: 1;
+    }
+
+    /* Leaflet map controls and attributions may need specific overrides for mobile if they overlap */
+    .leaflet-control-zoom {
+        bottom: 1rem !important;
+        right: 1rem !important;
+        left: unset !important;
+    }
+    .leaflet-control-attribution {
+        bottom: 0.5rem !important;
+        left: 0.5rem !important;
+    }
 }
 
-.map-control-btn:hover {
-    background-color: #f0f4f8;
-}
+@media (max-width: 480px) {
+    :root {
+        font-size: 13px;
+    }
 
-.map-control-btn:not(:last-child) {
-    border-bottom: 1px solid var(--border-color);
-}
+    .header {
+        flex-direction: column;
+        gap: 0.625rem;
+        padding: 0.75rem;
+    }
 
-.map-control-btn.eye-btn {
-    border-bottom: none; /* No border for the single eye button */
-}
+    .add-note-btn {
+        width: 100%;
+        justify-content: center;
+    }
 
-.map-control-btn .material-symbols-outlined {
-    font-size: 24px;
-    fill: 0; /* Outline icon */
+    .sidebar {
+        padding: 1rem;
+    }
+
+    .note-card {
+        padding: 0.75rem;
+    }
+
+    .note-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3125rem;
+    }
+    .note-meta-top, .note-meta-bottom {
+        margin-bottom: 0; /* Remove space between meta lines on very small screens */
+    }
+
+    .add-note-form-section {
+        padding: 0.75rem;
+    }
 }
