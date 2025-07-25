@@ -93,6 +93,7 @@ body {
 .main-content {
     display: flex;
     flex-grow: 1;
+    overflow: hidden;
 }
 
 /* Sidebar */
@@ -174,15 +175,24 @@ body {
 }
 
 .note-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-size: 13px;
     color: var(--text-color-light);
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px dashed #f3f4f6; /* Dashed line separator */
 }
+
+.note-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.note-meta-bottom {
+    display: flex;
+}
+
 
 .note-meta-item {
     display: flex;
