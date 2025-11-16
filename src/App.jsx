@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Login from './Login';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './app.css';
@@ -9,6 +10,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [selectedLatLng, setSelectedLatLng] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [user, setUser] = useState(null); // 👈 New state for login
 
   const handleMapClick = (e) => {
     if (showForm) {
@@ -22,7 +24,7 @@ function App() {
   };
 
   const addNote = (note) => {
-    setNotes([note, ...notes]);
+    setNotes([{ ...note, user }, ...notes]); // 👈 Attach logged-in user
     setShowForm(false);
     setSelectedLatLng(null);
   };
@@ -40,9 +42,13 @@ function App() {
     ]);
   }, []);
 
+  if (!user) {
+    return <Login onLogin={setUser} />;
+  }
+
   return (
     <div className="app-container">
-      <Header onAddNote={() => setShowForm(true)} />
+      <Header onAddNote={() => setShowForm(true)} user={user} />
       <main className="main-content">
         <Sidebar
           notes={notes}
@@ -57,7 +63,9 @@ function App() {
             <MapClickHandler />
             {notes.map((note, idx) => (
               <Marker key={idx} position={[note.lat, note.lng]}>
-                <Popup><b>Note:</b> {note.text}</Popup>
+                <Popup>
+                  <b>{note.user}:</b> {note.text}
+                </Popup>
               </Marker>
             ))}
             {selectedLatLng && showForm && (
